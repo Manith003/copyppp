@@ -40,26 +40,30 @@ document.getElementById("linkForm").onsubmit = async (e) => {
   if (!links.length) return alert("Please enter at least one link");
 
   // Show loading indicator
-  document.getElementById("linkForm").querySelector("button[type=submit]").textContent = "Generating...";
-  document.getElementById("linkForm").querySelector("button[type=submit]").disabled = true;
+  const submitButton = document.getElementById("linkForm").querySelector("button[type=submit]");
+  submitButton.textContent = "Generating...";
+  submitButton.disabled = true;
   
   try {
-    // Handle logo upload if selected
-    let logoUrl = "";
+    // Handle logo upload - convert to base64 instead of Firebase Storage
+    let logoBase64 = "";
     const logoFile = document.getElementById("logoUpload").files[0];
     
     if (logoFile) {
-      const storageRef = firebase.storage().ref();
-      const logoRef = storageRef.child(`logos/${Date.now()}_${logoFile.name}`);
-      await logoRef.put(logoFile);
-      logoUrl = await logoRef.getDownloadURL();
+      // Convert file to base64 string
+      logoBase64 = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (e) => resolve(e.target.result);
+        reader.readAsDataURL(logoFile);
+      });
     }
     
+    // Save data to Firestore with base64 logo
     const docRef = await db.collection("qr_links").add({ 
       companyName,
       description,
       links,
-      logoUrl,
+      logoUrl: logoBase64, // Store as base64 string
       createdAt: new Date()
     });
     
@@ -67,15 +71,22 @@ document.getElementById("linkForm").onsubmit = async (e) => {
 
     // Generate QR as PNG
     QRCode.toDataURL(previewUrl, { width: 256 }, (err, url) => {
-      if (err) return console.error(err);
+      if (err) {
+        console.error(err);
+        submitButton.textContent = "Generate QR";
+        submitButton.disabled = false;
+        alert("Error generating QR code. Please try again.");
+        return;
+      }
+      
       document.getElementById("qrPreview").src = url;
       document.getElementById("qrPreview").style.display = "block";
       document.getElementById("downloadBtns").style.display = "block";
       document.getElementById("qrCanvas").style.display = "none";
 
       // Reset button state
-      document.getElementById("linkForm").querySelector("button[type=submit]").textContent = "Generate QR";
-      document.getElementById("linkForm").querySelector("button[type=submit]").disabled = false;
+      submitButton.textContent = "Generate QR";
+      submitButton.disabled = false;
 
       // Download PNG
       document.getElementById("downloadPng").onclick = () => {
@@ -84,28 +95,28 @@ document.getElementById("linkForm").onsubmit = async (e) => {
         a.download = `${companyName}-qr-code.png`;
         a.click();
       };
-    });
+      
+      // Generate SVG
+      QRCode.toString(previewUrl, { type: 'svg' }, (err, svg) => {
+        if (err) return console.error(err);
 
-    // Generate SVG
-    QRCode.toString(previewUrl, { type: 'svg' }, (err, svg) => {
-      if (err) return console.error(err);
-
-      document.getElementById("downloadSvg").onclick = () => {
-        const blob = new Blob([svg], { type: "image/svg+xml" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `${companyName}-qr-code.svg`;
-        a.click();
-        URL.revokeObjectURL(url);
-      };
+        document.getElementById("downloadSvg").onclick = () => {
+          const blob = new Blob([svg], { type: "image/svg+xml" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `${companyName}-qr-code.svg`;
+          a.click();
+          URL.revokeObjectURL(url);
+        };
+      });
     });
 
   } catch (error) {
-    console.error("Error saving links to Firebase:", error);
-    alert("Error generating QR code. Please try again.");
+    console.error("Error saving to Firebase:", error);
+    alert("Error generating QR code: " + error.message);
     // Reset button state
-    document.getElementById("linkForm").querySelector("button[type=submit]").textContent = "Generate QR";
-    document.getElementById("linkForm").querySelector("button[type=submit]").disabled = false;
+    submitButton.textContent = "Generate QR";
+    submitButton.disabled = false;
   }
 };

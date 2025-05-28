@@ -24,7 +24,7 @@ if (id) {
       
       // Set the company logo if available
       if (logoUrl) {
-        document.getElementById("companyLogo").src = logoUrl;
+        document.getElementById("companyLogo").src = logoUrl; // This works with both URLs and base64
         document.getElementById("companyLogo").alt = `${companyName} logo`;
         document.querySelector(".logo-container").style.display = "flex";
       } else {
