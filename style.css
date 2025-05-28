@@ -1,0 +1,155 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Header section with brown background */
+.header {
+  background-color: #552b00;
+  padding: 40px 0;
+  margin-bottom: 30px;
+}
+
+/* Logo styling */
+.logo-container {
+  width: 120px;
+  height: 120px;
+  background-color: #333;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  border: 10px solid #555;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  background-color: #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c9a731;
+  font-size: 40px;
+  font-weight: bold;
+  position: relative;
+}
+
+.logo::before {
+  content: '';
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  border: 2px solid #c9a731;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+h1 {
+  color: #ffffff;
+  margin-top: 20px;
+}
+
+/* Form styling */
+#linkForm {
+  background-color: #333;
+  padding: 30px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: #222;
+  color: #fff;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+input[type="text"]::placeholder {
+  color: #999;
+}
+
+button {
+  background-color: #c9a731;
+  color: #000;
+  border: none;
+  padding: 12px 20px;
+  margin: 10px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #e0bd4c;
+}
+
+/* QR code display area */
+#qrPreview {
+  max-width: 256px;
+  margin: 30px auto;
+  display: block;
+  border: 10px solid #333;
+  border-radius: 10px;
+}
+
+#downloadBtns button {
+  margin: 10px;
+}
+
+/* Company logo upload section */
+.image-upload {
+  margin: 20px 0;
+}
+
+.image-upload label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.upload-preview {
+  width: 100px;
+  height: 100px;
+  margin: 10px auto;
+  border: 2px dashed #555;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-preview img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Footer */
+.footer {
+  margin-top: 50px;
+  padding: 20px;
+  text-align: center;
+  color: #777;
+  font-size: 14px;
+}

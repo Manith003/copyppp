@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QR Code Generator with Downloads</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="header">
+    <div class="logo-container">
+      <div class="logo">Q</div>
+    </div>
+    <h1>Generate QR Code</h1>
+  </div>
+
+  <div class="container">
+    <form id="linkForm">
+      <input type="text" id="companyName" placeholder="Enter Company Name" class="company-input"><br>
+      
+      <!-- Company Logo Upload -->
+      <div class="image-upload">
+        <label for="companyLogo">Upload Company Logo (Optional)</label>
+        <input type="file" id="companyLogo" accept="image/*" style="display: none;">
+        <button type="button" id="uploadLogoBtn">Select Logo</button>
+        <div class="upload-preview" id="logoPreview">
+          <span>No logo</span>
+        </div>
+      </div>
+      
+      <input type="text" placeholder="Enter Link 1" class="link-input"><br>
+      <input type="text" placeholder="Enter Link 2" class="link-input"><br>
+      <button type="button" id="addLink">+ Add another link</button><br><br>
+      <button type="submit">Generate QR</button>
+    </form>
+
+    <canvas id="qrCanvas" style="display:none;"></canvas>
+    <img id="qrPreview" style="display:none;" />
+    <div id="downloadBtns" style="display:none;">
+      <button id="downloadPng">Download PNG</button>
+      <button id="downloadSvg">Download SVG</button>
+    </div>
+    
+    <div class="footer">
+      &copy; 2025 QR Generator. All rights reserved.
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

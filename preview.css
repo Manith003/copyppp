@@ -1,0 +1,176 @@
+/* Modern UI for QR Code Preview - preview.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary: #3a86ff;
+  --secondary: #8338ec;
+  --success: #06d6a0;
+  --light: #f8f9fa;
+  --dark: #212529;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 1rem;
+  color: var(--dark);
+}
+
+.header-container {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 2rem;
+}
+
+h1 {
+  color: var(--primary);
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.company-heading {
+  color: var(--secondary);
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(45deg, var(--secondary), var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding: 15px;
+  border-radius: var(--border-radius);
+  position: relative;
+  animation: fadeInDown 0.8s ease-in-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.company-heading::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 25%;
+  width: 50%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+  border-radius: 2px;
+}
+
+#linkList {
+  list-style-type: none;
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  width: 100%;
+  max-width: 600px;
+  padding: 0;
+  overflow: hidden;
+  animation: slideUp 0.5s ease-in-out;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#linkList li {
+  padding: 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  transition: var(--transition);
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+#linkList li:last-child {
+  border-bottom: none;
+}
+
+#linkList li:hover {
+  background-color: rgba(58, 134, 255, 0.05);
+}
+
+.link-number {
+  background-color: var(--secondary);
+  color: white;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: 15px;
+  flex-shrink: 0;
+}
+
+#linkList li a {
+  display: block;
+  padding: 16px 15px 16px 10px;
+  color: var(--dark);
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: var(--transition);
+  flex-grow: 1;
+}
+
+#linkList li a:hover {
+  color: var(--primary);
+}
+
+/* Error messages styling */
+p {
+  background-color: white;
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  text-align: center;
+  color: #e63946;
+  max-width: 500px;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 580px) {
+  h1 {
+    font-size: 1.4rem;
+  }
+  
+  .company-heading {
+    font-size: 2rem;
+  }
+  
+  #linkList li a {
+    font-size: 0.9rem;
+  }
+}
