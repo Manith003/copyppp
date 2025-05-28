@@ -61,7 +61,7 @@ document.getElementById("linkForm").onsubmit = async (e) => {
     }
     
     const docRef = await db.collection("qr_links").add(docData);
-    const previewUrl = `https://manith003.github.io/multi-qr/preview.html?id=${docRef.id}`;
+    const previewUrl = `https://manith003.github.io/copyppp/preview.html?id=${docRef.id}`;
 
     // Generate QR as PNG
     QRCode.toDataURL(previewUrl, { width: 256 }, (err, url) => {
